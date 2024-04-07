@@ -55,21 +55,25 @@ Este diagrama muestra el flujo de registro e inicio de sesión para un `ADMIN_HO
 Este diagrama de flujo detalla los siguientes pasos para el registro y administración de un nuevo hotel por parte de un usuario ADMIN_HOTEL
 
 <img src="./user-story-ADMIN_HOTEL-2.svg" height="300" width="100%">
+
 3. **Flujo de Gestión de Habitaciones**:
 
 En este diagrama, se detalla el flujo para la gestión de habitaciones de un hotel, incluyendo la creación, definición de detalles, actualización del inventario, edición y eliminación de habitaciones.
 
 <img src="./user-story-ADMIN_HOTEL-3.svg" height="300" width="100%">
+
 4. **Flujo de Gestión de Reservaciones**:
 
 Este diagrama cubre el flujo de gestión de reservaciones para un `ADMIN_HOTEL`, incluyendo la visualización de reservaciones, la realización de check-in y check-out, la cancelación y modificación de reservaciones, y la actualización del inventario de habitaciones.
 
 <img src="./user-story-ADMIN_HOTEL-4.svg" height="300" width="100%">
+
 5. **Flujo de Generación de Facturas y Reportes**:
 
 En este diagrama, se muestra el flujo para la generación de facturas después del check-out de un huésped, incluyendo el registro de pagos, así como el acceso a reportes y estadísticas para el análisis del rendimiento del hotel.
 
 <img src="./user-story-ADMIN_HOTEL-5.svg" height="300" width="100%">
+
 6. **Flujo de Gestión de Reseñas y Configuración**:
 
 Este último diagrama cubre el flujo para la gestión de reseñas y calificaciones de los huéspedes, incluyendo la respuesta y reporte de reseñas, así como la configuración de políticas, tarifas, promociones y contenido relacionado con el hotel.

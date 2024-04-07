@@ -122,158 +122,161 @@
       - Se crea un índice sobre el campo `hotel_id` para facilitar la búsqueda de reseñas por hotel.
 
   ![image](./Hotel-Reservation-System-diagram.svg)
-  <img src="./Hotel-Reservation-System-diagram.svg">
 
-```dbml
-// Use DBML to define your database structure
-// Docs: https://dbml.dbdiagram.io/docs
+<details>
+  <summary>Codigo DBML</summary>
 
-Table User {
-  id int [pk]
-  email varchar [unique, not null]
-  password varchar [not null]
-  name varchar [not null]
-  lastname varchar [not null]
-  created_at timestamp [not null]
-  updated_at timestamp
-  role role [not null]
-  tp_status status [not null]
+  ```dbml
+  // Use DBML to define your database structure
+  // Docs: https://dbml.dbdiagram.io/docs
 
-  indexes {
-    email
+  Table User {
+    id int [pk]
+    email varchar [unique, not null]
+    password varchar [not null]
+    name varchar [not null]
+    lastname varchar [not null]
+    created_at timestamp [not null]
+    updated_at timestamp
+    role role [not null]
+    tp_status status [not null]
+
+    indexes {
+      email
+    }
   }
-}
 
-Table Hotel {
-  id int [pk]
-  name varchar [not null]
-  country varchar [not null]
-  address varchar [not null]
-  description varchar [not null]
-  created_at timestamp [not null]
-  updated_at timestamp
-  tp_status status [not null]
-}
-
-table Hotel_Images {
-  id int [pk]
-  image_url varchar [not null]
-  hotel_id int [ref: > Hotel.id, not null]
-  is_main_image bool [not null]
-  indexes {
-    hotel_id
+  Table Hotel {
+    id int [pk]
+    name varchar [not null]
+    country varchar [not null]
+    address varchar [not null]
+    description varchar [not null]
+    created_at timestamp [not null]
+    updated_at timestamp
+    tp_status status [not null]
   }
-  
-}
 
-Table Services {
-  id int [pk]
-  name varchar [unique, not null]
-  description varchar [not null]
-  tp_status status [not null]
-  duration timestamp [not null]
-  price double [not null]
-  hotel_id int [ref: > Hotel.id, not null]
-
-  indexes {
-    hotel_id
+  table Hotel_Images {
+    id int [pk]
+    image_url varchar [not null]
+    hotel_id int [ref: > Hotel.id, not null]
+    is_main_image bool [not null]
+    indexes {
+      hotel_id
+    }
+    
   }
-}
 
-// basically Invoice details, but its mostly 
-// for services
-Table Services_Acquired {
-  id int [pk]
-  transaction_id int [ref: > Invoice.id, not null]
-  services_id int [ref: > Services.id, not null]
-  // cantidad de servicios `SEGUIDOS`
-  // en caso de querer 2 en diferentes dias, 
-  // crear 2 entries
-  quantity int [not null]
-  date_acquired timestamp [not null]
-  date_start timestamp [not null]
-  date_end timestamp [not null]
-  total_price double [not null]
-}
+  Table Services {
+    id int [pk]
+    name varchar [unique, not null]
+    description varchar [not null]
+    tp_status status [not null]
+    duration timestamp [not null]
+    price double [not null]
+    hotel_id int [ref: > Hotel.id, not null]
 
-Table Room {
-  id int [pk]
-  description varchar [not null]
-  people_capacity integer [not null]
-  night_price double [not null]
-  tipo_habitacion varchar
-  created_at timestamp [not null]
-  updated_at timestamp  
-  tp_status status [not null]
-
-
-  // relationships
-  hotel_id int [ref: > Hotel.id, not null]
-
-  indexes {
-    hotel_id
+    indexes {
+      hotel_id
+    }
   }
-}
 
-table Room_Images {
-  id int [pk]
-  image_url varchar [not null]
-  room_id int [ref: > Room.id, not null]
-  is_main_image bool [not null]
-}
-
-Table Booking {
-  id int [pk]
-  date_start date [not null]
-  date_end date [not null]
-  created_at timestamp [not null]
-  updated_at timestamp 
-  tp_status status [not null]
-
-  // relationships
-  room_id int [ref: > Room.id, not null]
-  user_id int [ref: > User.id, not null]
-}
-
-
-table Invoice {
-  id int [pk]
-  price double [not null]
-  created_at timestamp [not null]
-  tp_status status [not null]
-
-  // relationships
-  booking_id int [ref: - Booking.id, not null]
-  user_id int [ref: > User.id, not null]
-}
-
-Table FavoriteHotels {
-  id int [pk]
-  user_id int [ref: > User.id, not null]
-  hotel_id int [ref: > Hotel.id, not null]
-
-  indexes {
-    hotel_id
+  // basically Invoice details, but its mostly 
+  // for services
+  Table Services_Acquired {
+    id int [pk]
+    transaction_id int [ref: > Invoice.id, not null]
+    services_id int [ref: > Services.id, not null]
+    // cantidad de servicios `SEGUIDOS`
+    // en caso de querer 2 en diferentes dias, 
+    // crear 2 entries
+    quantity int [not null]
+    date_acquired timestamp [not null]
+    date_start timestamp [not null]
+    date_end timestamp [not null]
+    total_price double [not null]
   }
-}
 
-Table Reviews {
-  id int [pk]
-  comment varchar [not null]
-  rating_cleanliness int [not null]
-  rating_staff int [not null]
-  rating_facilities int [not null]
-  tp_status status [not null]
-  is_customer bool [not null] // to check if actually used the room
-  // relationships
-  user_id int [ref: > User.id, not null]
-  hotel_id int [ref: > Hotel.id, not null]
+  Table Room {
+    id int [pk]
+    description varchar [not null]
+    people_capacity integer [not null]
+    night_price double [not null]
+    tipo_habitacion varchar
+    created_at timestamp [not null]
+    updated_at timestamp  
+    tp_status status [not null]
 
-  indexes {
-    hotel_id
+
+    // relationships
+    hotel_id int [ref: > Hotel.id, not null]
+
+    indexes {
+      hotel_id
+    }
   }
-}
-```
+
+  table Room_Images {
+    id int [pk]
+    image_url varchar [not null]
+    room_id int [ref: > Room.id, not null]
+    is_main_image bool [not null]
+  }
+
+  Table Booking {
+    id int [pk]
+    date_start date [not null]
+    date_end date [not null]
+    created_at timestamp [not null]
+    updated_at timestamp 
+    tp_status status [not null]
+
+    // relationships
+    room_id int [ref: > Room.id, not null]
+    user_id int [ref: > User.id, not null]
+  }
+
+
+  table Invoice {
+    id int [pk]
+    price double [not null]
+    created_at timestamp [not null]
+    tp_status status [not null]
+
+    // relationships
+    booking_id int [ref: - Booking.id, not null]
+    user_id int [ref: > User.id, not null]
+  }
+
+  Table FavoriteHotels {
+    id int [pk]
+    user_id int [ref: > User.id, not null]
+    hotel_id int [ref: > Hotel.id, not null]
+
+    indexes {
+      hotel_id
+    }
+  }
+
+  Table Reviews {
+    id int [pk]
+    comment varchar [not null]
+    rating_cleanliness int [not null]
+    rating_staff int [not null]
+    rating_facilities int [not null]
+    tp_status status [not null]
+    is_customer bool [not null] // to check if actually used the room
+    // relationships
+    user_id int [ref: > User.id, not null]
+    hotel_id int [ref: > Hotel.id, not null]
+
+    indexes {
+      hotel_id
+    }
+  }
+  ```
+</details>
 
 ## Possible entities
 
